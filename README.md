@@ -17,14 +17,14 @@ and finally run the applicaiton using npm start command.
 
 
 Inputs:
-	pTableSetting
-		tableID (?string) – If you want to set table Id, you can easily set as input otherwise component will set it automatically.
-		tableClass (?string) – If you want to set additional class for this table use this input and set your class name.
-		 tableName (?string) -  To show table title, set your table title here.
-		enabledColumnFilter (Boolean)  To enable column wise filter on P-table use this flag. Just like Excel.
-		enabledColumnResize (Boolean)  Sometimes we need to resize column as custom so that we can easily drag the column size as we like. Use this flag to resize your column.
-		  pageSize (?Number):  To show number of record in a page, set this variable as your expected number otherwise it will 10 number in a page.
-		  displayPaggingSize (?Number) How much number will show in footer to change page of shift left end and right end, set your expected number otherwise it will work automatically.
+	pTableSetting <br/>
+	--	tableID (?string) – If you want to set table Id, you can easily set as input otherwise component will set it automatically.<br/>
+	--	tableClass (?string) – If you want to set additional class for this table use this input and set your class name.<br/>
+	--	 tableName (?string) -  To show table title, set your table title here.<br/>
+	--	enabledColumnFilter (Boolean)  To enable column wise filter on P-table use this flag. Just like Excel.<br/>
+		enabledColumnResize (Boolean)  Sometimes we need to resize column as custom so that we can easily drag the column size as we like. Use this flag to resize your column.<br/>
+		  pageSize (?Number):  To show number of record in a page, set this variable as your expected number otherwise it will 10 number in a page.<br/>
+		  displayPaggingSize (?Number) How much number will show in footer to change page of shift left end and right end, set your expected number otherwise it will work automatically.<br/>
 		enabledSerialNo (?Boolean) – To show auto serial no with row, you can easily handle this using enabledSerialNo true, false.  
 		enabledSearch (Boolean) – To enable global search on p-table record set this variable as true, 
 		enabledCheckbox (Boolean) – To show checkbox in left side of table row, set this flag true. 
