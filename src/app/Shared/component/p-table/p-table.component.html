@@ -1,0 +1,143 @@
+<div *ngIf="pTableSetting!=null">
+    <div class="col-md-12 p-table-content">
+        <div class="panel panel-default">
+            <div class="p-table-header">
+                <div class="row">
+                    <div class="col col-xs-6">
+                        <h3 class="panel-title">{{pTableSetting.tableName}}</h3>
+                    </div>
+                    <div class="col col-xs-6 text-right" *ngIf="pTableSetting.enabledRecordCreateBtn">
+                        <button type="button" class="btn btn-sm btn-primary btn-create">Create New</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row search-table" *ngIf="pTableSetting.enabledSearch">
+                <div class="col-sm-7 col-md-8 col-xs-9">
+                    <div class="pull-left">
+                        <div class="btn-group" *ngIf="pTableSetting.enabledDataLength">
+                            <select class="selectpicker form-control" (change)="fnChangePTableDataLength($event)">
+                                <option *ngFor="let rowlimit of rowLimitArray" value="{{rowlimit}}">{{rowlimit}} records</option>
+                            </select>
+                            <!--<button class="btn p-table-data-length">Show {{pageSize}}  records<span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li *ngFor="let rowlimit of rowLimitArray"><a id="action-1" (click)="fnChangePTableRowLength(rowlimit)">{{rowlimit}} records</a></li>
+                            </ul>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5 col-md-4 col-xs-3 pull-right">
+                    <div class="form-group has-feedback">
+                        <input type="text" class="form-control p-table-search" id="inputValidation" #search placeholder="Search" [(ngModel)]="globalSearchValue" (keyup)="fnFilterPTable(search.value)" />
+                        <span class="glyphicon glyphicon-search form-control-feedback" style="z-index: 1"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body p-table-body">
+                <table class="p-table table table-striped table-bordered table-list" [id]="pTableSetting.tableID">
+                    <thead>
+                        <tr>
+                            <th *ngIf="pTableSetting.enabledSerialNo" class="p-table-serial" width="10px">
+                                <span *ngIf="pTableSetting.enabledColumnResize" class="p-table-column-resizer" (mousedown)="fnResizeColumn($event)"></span> SL
+                            </th>
+                            <th *ngIf="pTableSetting.enabledCheckbox" class="p-table-row-checkbox"><input type="checkbox" [ngClass]="'p-table-select-all select-all-'+pTableSetting.tableID" (click)="fnOperationOnCheckBox($event,pTableSetting.tableID)">
+                                <span *ngIf="pTableSetting.enabledColumnResize" class="p-table-column-resizer" (mousedown)="fnResizeColumn($event)"></span> {{pTableSetting?.checkboxColumnHeader||'Select'}}
+                            </th>
+                            <th *ngIf="pTableSetting.enabledRadioBtn" class="p-table-row-radio">
+                                <span *ngIf="pTableSetting.enabledColumnResize" class="p-table-column-resizer" (mousedown)="fnResizeColumn($event)"></span> {{pTableSetting?.radioBtnColumnHeader||'Select'}}
+                            </th>
+                            <th *ngFor="let head of pTableSetting.tableColDef" class="{{head.className}} {{head.internalName}}" [ngClass]="{'sorting':head.sort,'sorting-active':head.sort}" [ngStyle]="{'width': head.width}" (click)="fnColumnSorting(head.internalName,pTableSetting.tableID,head.sort)">
+                                <span *ngIf="pTableSetting.enabledColumnFilter && (head.applyColFilter=='Apply' || head.applyColFilter==null)" class="glyphicon glyphicon-filter column-filter-active pull-left" style="cursor: pointer" id="filter-icon-{{head.internalName}}" (click)="fnIndividualColumnFilterContext(head,$event)"></span>
+                                <span *ngIf="pTableSetting.enabledColumnResize" class="p-table-column-resizer" (mousedown)="fnResizeColumn($event)"></span>
+                                <span *ngIf="head.sort" class="sort-icon pull-right"> </span>
+                                <div *ngIf="head.type==''||head.type=='text'||head.type=='hyperlink'||head.type=='checkbox' || head.type==null">{{head.headerName}}</div>
+                                <div *ngIf="head.type=='checkbox-all'"><input type="checkbox" (click)="fnClickPTableCell($event,pTableSetting.enabledCellClick,'p-table-select-all',head.onClick,head)" />{{head.headerName}}</div>
+
+                            </th>
+                            <th *ngIf="pTableSetting.enabledEditBtn">
+                                <span *ngIf="pTableSetting.enabledColumnResize" class="p-table-column-resizer" (mousedown)="fnResizeColumn($event)"></span>
+                                <em class="fa fa-cog"></em>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let body of pagedItems, let counter=index" [ngClass]="'row-'+body[pTableSetting.tableRowIDInternalName]" class="individual-ptable-record-{{body[pTableSetting.columnNameSetAsClass]}}">
+                            <td *ngIf="pTableSetting.enabledSerialNo">{{startPageNo+counter}}</td>
+                            <td *ngIf="pTableSetting.enabledCheckbox" class="p-table-checkbox"><input type="checkbox" [ngClass]="'checkbox-'+pTableSetting.tableID" attr.data-sectionvalue="{{body[pTableSetting.tableRowIDInternalName]}}" (click)="fnIndividualCheckboxAction($event,body)"></td>
+                            <td *ngIf="pTableSetting.enabledRadioBtn" class="p-table-radio"><input type="radio" [ngClass]="'radio-'+pTableSetting.tableID" name="radio-{{pTableSetting.tableID}}" attr.data-sectionvalue="{{body[pTableSetting.tableRowIDInternalName]}}" (click)="fnIndividualRadioAction($event,body)"></td>
+                            <td class="" *ngFor="let dispCol of pTableSetting.tableColDef" [ngClass]="dispCol.className">
+                                <div *ngIf="dispCol.type=='checkbox'|| dispCol.type=='checkbox-all'"><input type="checkbox" [checked]="body[dispCol.internalName]=='true' || body[dispCol.internalName]==true" (click)="fnClickPTableCell($event,pTableSetting.enabledCellClick,dispCol.internalName,dispCol.onClick,body)" /></div>
+                                <div *ngIf="dispCol.type=='hyperlink'"><a class="p-table-hyperlink" (click)="fnClickPTableCell($event,pTableSetting.enabledCellClick,dispCol.internalName,dispCol.onClick,body)">{{body[dispCol.internalName]}}</a></div>
+                                <div *ngIf="dispCol.type=='' || dispCol.type==null">{{body[dispCol.internalName]}}</div>
+                            </td>
+                            <td align="left" width="10%" *ngIf="pTableSetting.enabledEditBtn">
+                                <a class="btn btn-default" (click)="fnEditRecord(body)"><em class="fa fa-pencil" ></em></a>
+                                <a class="btn btn-danger" (click)="fnDeleteRecord(body)"><em class="fa fa-trash" ></em></a>
+                            </td>
+                        </tr>
+                        <tr *ngIf="pTableDatalength<1">
+                            <td [colSpan]="totalColspan" align="center"><b>No Record Found.</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="p-table-footer" *ngIf="pTableDatalength>0">
+                <div class="row">
+                    <div class="col col-xs-4">
+                        <div [innerHTML]="showingPageDetails"></div>
+                    </div>
+                    <div class="col col-xs-8">
+                        <!-- pager -->
+                        <ul *ngIf="pager.pages && pager.pages.length && enabledPagination" class="pagination hidden-xs pull-right">
+                            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                <a (click)="setPage(1)"><span class="glyphicon glyphicon-chevron-left"></span><span class="glyphicon glyphicon-chevron-left p-table-aro-first"></span></a>
+                            </li>
+                            <li [ngClass]="{disabled:pager.currentPage === 1}" [attr.disabled]="pager.currentPage == 1 ? true : null">
+                                <a (click)="setPage(pager.currentPage - 1)"><span class="glyphicon glyphicon-chevron-left p-table-aro-prev"></span></a>
+                            </li>
+                            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                                <a (click)="setPage(page)">{{page}}</a>
+                            </li>
+                            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                <a (click)="setPage(pager.currentPage + 1)"><span class="glyphicon glyphicon-chevron-right p-table-aro-next"></span></a>
+                            </li>
+                            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                <a (click)="setPage(pager.totalPages)"><span class="glyphicon glyphicon-chevron-right p-table-aro-last"></span><span class="glyphicon glyphicon-chevron-right"></span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<app-p-modal [modalSettingOption]="pModalSetting"> </app-p-modal>-->
+
+    <div [id]="pTableSetting.tableID+'-fitlerInfo'" class="p-table-custom-column-filter">
+        <div class="row" style="margin-left: 5px;margin-right: 5px">
+            <div class="p-table-column-filter-title">
+                <span><b>Filter :</b> {{filterColumnTitle}}</span><span (click)="clearFilterFromFilterPopup()" style="cursor: pointer"> <span class="glyphicon glyphicon-filter" [id]="'filter-remove-'+filterCustomColumnName" [style.color]="popupFilterColor"></span>
+                <span class="glyphicon glyphicon-remove filter-popup-remove-icon"></span>
+                </span>
+            </div>
+            <div class="input-group">
+                <input type="text" class="form-control" #columnSearchVal placeholder="Search {{filterColumnTitle}}" [(ngModel)]="columnSearchValue" (keyup)="fnFilterPTableColumn(columnSearchVal.value)">
+                <span class="input-group-btn">
+                        <button type="submit" class="btn btn-default">
+                        <span class="glyphicon glyphicon-search"></span>
+                </button>
+                </span>
+            </div>
+            <div class="filterd-data">
+                <div>
+                    <label class="checkbox-inline"><input type="checkbox" [checked]="filterItemsCheckedAll" value="" (click)="fnCustomFilterSelectAll($event)">Select All </label>
+                    <div *ngFor="let uniqueRecord of customFilterUniqueArray"> <label class="checkbox-inline"><input type="checkbox" value="" [(ngModel)]="uniqueRecord.checked">{{uniqueRecord.data}} </label><br/></div>
+                </div>
+            </div>
+            <div class="footer-buttons pull-right">
+                <button type="button" class="btn btn-default filter-button" (click)="fnApplyCustomFilter()">Ok</button>
+                <button type="button" class="btn btn-default filter-button" (click)="fnCloseCustomFilter()">Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>

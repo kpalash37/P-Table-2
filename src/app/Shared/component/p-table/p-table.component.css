@@ -1,0 +1,352 @@
+.p-table thead {
+    background-color: #F2FFDF;
+}
+
+.p-table-header,
+.panel-heading,
+.p-table-footer {
+    background-color: #E8F5E9!important;
+    padding: 8px;
+}
+
+.p-table-body {
+    padding: 0px!important;
+}
+
+.p-table-content {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.p-table {
+    margin-bottom: 0px!important;
+    width: 100%;
+}
+
+.p-table-header {
+    background-color: #B1F1B2;
+}
+
+.p-table .p-table-body .table-bordered>tbody>tr>td {
+    line-height: 30px
+}
+
+.p-table {
+    font-size: 12px;
+}
+
+.p-table-footer {
+    font-size: 14px;
+}
+
+.p-table-footer .pagination {
+    margin: 0px!important;
+}
+
+.p-table tbody tr:hover td {
+    background-color: #eeeeee!important;
+}
+
+.search-table {
+    margin-right: 0px!important;
+    padding: 5px 0px 5px 0px!important;
+}
+
+.p-table-content .p-table-footer .p-table-aro-first {
+    left: -6px !important;
+}
+
+.p-table-content .p-table-footer .p-table-aro-last {
+    right: -6px !important;
+}
+
+.p-table-content .search-table .has-feedback {
+    margin-bottom: 0px !important;
+}
+
+.p-table th.p-table-row-checkbox {
+    /*width:60px !important;*/
+    min-width: 5% !important;
+    text-align: center;
+}
+
+.p-table thead th {
+    vertical-align: middle;
+}
+
+span.sort-icon {
+    display: block;
+    position: absolute;
+    top: 33%;
+    right: -4px;
+    margin: 0;
+    width: 18px;
+    height: 18px;
+    padding: 0;
+}
+
+.p-table thead th.sorting span.sort-icon {
+    background-image: url("/app/Shared/component/images/sort_both.png") !important;
+    background-repeat: no-repeat !important;
+    background-position: center right!important;
+}
+
+.p-table thead th.sorting-up span.sort-icon {
+    background-image: url("/app/Shared/component/images/sort_asc.png")!important;
+    background-repeat: no-repeat!important;
+    background-position: center right!important;
+}
+
+.p-table thead th.sorting-down span.sort-icon {
+    background-image: url("/app/Shared/component/images/sort_desc.png")!important;
+    background-repeat: no-repeat!important;
+    background-position: center right!important;
+}
+
+.p-table-content .panel-title {
+    font-size: 20px;
+}
+
+
+/*New tabular property*/
+
+.p-table-footer .pagination>li>a,
+.p-table-footer .pagination>li>span {
+    padding: 6px 10px !important;
+}
+
+
+/*p-table header default color set*/
+
+.p-table-body .p-table thead th {
+    background: #3b4f5a;
+    color: #fff;
+    border: none;
+    padding: 0px;
+    padding-top: 9px;
+    padding-bottom: 8px;
+    border-right: 1px solid #fff;
+    text-align: center;
+    font-size: 14px;
+}
+
+#static-table thead tr th.static-pack-description,
+#static-table thead tr th.p-table-row-checkbox,
+#static-table thead tr th.static-market-base {
+    background: #3b4f5a;
+    color: #fff;
+    border: none;
+    padding: 0px;
+    padding-top: 9px;
+    padding-bottom: 8px;
+    border-right: 1px solid #fff;
+    text-align: center;
+    font-size: 14px;
+}
+
+#dynamic-table thead tr th.dynamic-pack-name,
+#dynamic-table thead tr th.p-table-row-checkbox {
+    background: #3b4f5a;
+    color: #fff;
+    border: none;
+    padding: 0px;
+    padding-top: 9px;
+    padding-bottom: 8px;
+    border-right: 1px solid #fff;
+    text-align: center;
+    font-size: 14px;
+}
+
+#dynamic-table thead tr th.dynamic-market-base {
+    background: #25b4ff;
+    color: #fff;
+    border: none;
+    padding: 0px;
+    padding-top: 9px;
+    padding-bottom: 8px;
+    border-right: 2px solid #fff;
+    width: 15%;
+    text-align: center;
+    font-size: 14px;
+}
+
+#dynamic-table thead tr th.dynamic-group-no,
+#dynamic-table thead tr th.dynamic-group-name {
+    background: #84bc01;
+    color: #fff;
+    border: none;
+    padding: 0px;
+    padding-top: 9px;
+    padding-bottom: 8px;
+    border-right: 2px solid #fff;
+    width: 7%;
+    text-align: center;
+    font-size: 14px;
+}
+
+#dynamic-table thead tr th.dynamic-factor {
+    background: #fccf38;
+    color: #fff;
+    border: none;
+    padding: 0px;
+    padding-top: 9px;
+    padding-bottom: 8px;
+    border-right: 2px solid #fff;
+    width: 7%;
+    text-align: center;
+    font-size: 14px;
+}
+
+#dynamic-table thead tr th.dynamic-pfc,
+#dynamic-table thead tr th.dynamic-manufacturer,
+#dynamic-table thead tr th.dynamic-atc4,
+#dynamic-table thead tr th.dynamic-nec4,
+#dynamic-table thead tr th.dynamic-product {
+    background: #3b4f5a;
+    color: #fff;
+    border: none;
+    padding: 0px;
+    padding-top: 9px;
+    padding-bottom: 8px;
+    border-right: 1px solid #fff;
+    text-align: center;
+    font-size: 14px;
+}
+
+#dynamic-table tbody tr td.dynamic-market-base {
+    background: #e8f8ff;
+    padding: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 2px solid #ffffff;
+    text-align: center;
+}
+
+#dynamic-table tbody tr td::not(.p-table-checkbox),
+#static-table tbody tr td::not(.checkbox-static-table) {
+    text-align: center;
+}
+
+#dynamic-table tbody tr td.dynamic-group-no,
+#dynamic-table tbody tr td.dynamic-group-name {
+    background: #f4f8e9;
+    padding: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 2px solid #ffffff;
+}
+
+#dynamic-table tbody tr td.dynamic-factor {
+    background-color: #fef5e6;
+    padding: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 2px solid #ffffff;
+}
+
+#territory-list-table thead tr th.territory-list-code,
+#territory-list-table thead tr th.territory-list-territory,
+#territory-list-table thead tr th.territory-list-bricks,
+#territory-list-table thead tr th.p-table-row-radio {
+    background: #3b4f5a;
+    color: #fff;
+    border: none;
+    padding: 0px;
+    padding-top: 9px;
+    padding-bottom: 8px;
+    border-right: 1px solid #fff;
+    text-align: center;
+    font-size: 14px;
+}
+
+#available-bricks-table thead tr th {
+    background: #3b4f5a;
+    color: #fff;
+    border: none;
+    padding: 0px;
+    padding-top: 9px;
+    padding-bottom: 8px;
+    border-right: 1px solid #fff;
+    text-align: center;
+    font-size: 14px;
+}
+
+
+/*Individual record color css*/
+
+.p-table tr.individual-ptable-record-A td {
+    background: #d3f8d3 !important;
+}
+
+.p-table tr.individual-ptable-record-A:hover td {
+    background: #d3f8d3 !important;
+}
+
+
+/*end of Individual record color css*/
+
+
+/*   for column resize    */
+
+.p-table thead tr th {
+    position: relative;
+}
+
+span.p-table-column-resizer {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    width: 8px;
+    height: 100%;
+    padding: 0;
+    cursor: col-resize;
+    border: 1px solid transparent;
+}
+
+
+/*   end of column resize    */
+
+
+/*    for custom filter */
+
+.p-table-custom-column-filter {
+    position: absolute;
+    width: 300px;
+    height: 320px;
+    border: 1px solid black;
+    background-color: #f9f9f9;
+    display: none;
+    z-index: 1010;
+}
+
+.p-table-column-filter-title {
+    padding-bottom: 5px;
+    padding-top: 5px;
+    font-size: 15px;
+}
+
+label.checkbox-inline {
+    clear: right;
+}
+
+.filterd-data {
+    margin-top: 5px;
+    margin-left: 20px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    min-height: 130px !important;
+    max-height: 200px !important;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.filter-popup-remove-icon {
+    color: red;
+    font-size: 9px;
+    left: -6px !important;
+}
+
+
+/*  end of custom filter  */
