@@ -1,13 +1,53 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'my-app',
-  template: `<h1>P Table Demo</h1>  
-  <app-p-table [pTableSetting]="territoryListTableBind" [pTableMasterData]="territoryNodes"></app-p-table>`,
+  template: `
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>P Table Demo</h1>  
+      <app-p-table [pTableSetting]="territoryListTableBind" [pTableMasterData]="territoryNodes"></app-p-table><br/><br/>
+   </div>
+</div>
+<div class="row">
+   <ul>
+   <div *ngFor="let todo of todos" class="dragable-content" [makeDraggable]="todo" makeDroppable (dropped)="onDrop($event, todo)">
+    <li class="dragable">
+      <span>{{todo.description}}</span>
+    </li>
+
+    </div>
+    </ul>
+ </div>
+  `,
+  styles: [`li.dragable{
+    font-weight:bold;
+    border-radius:10px;
+    background-color:#e7e7e7;
+    padding:5px;
+    width:250px;
+    list-style:none;
+    cursor:move;
+    border-bottom-style:solid;
+  }
+  div.dragable-content{
+    padding:5px;
+  }`]
 })
 export class AppComponent implements OnInit {
-    name = 'Angular';
+  name = 'Angular';
   public territoryNodes: any[];
+  public todos: any[] = [{ order: 0, description: 'A Clean up code' },
+  { order: 1, description: 'B Blog about it' },
+  { order: 2, description: 'C Push code to Github' },
+  { order: 3, description: 'D Share blog on twitter' },
+  { order: 3, description: 'E Share blog on twitter' },
+  { order: 3, description: 'F Share blog on twitter' },
+  { order: 3, description: 'G Share blog on twitter' },
+  { order: 3, description: 'H Share blog on twitter' },
+  { order: 3, description: 'I Share blog on twitter' }]
+
   constructor() {
     this.territoryNodes = [
       { NodeCode: '10', NodeName: 'Node A', BrickOutletCount: 10 },
@@ -38,19 +78,19 @@ export class AppComponent implements OnInit {
   }
   public territoryListTableBind: any;
   ngOnInit() {
-     this.territoryListTableBind = {
+    this.territoryListTableBind = {
       tableID: "territory-list-table",
       tableClass: "table table-border ",
       tableName: "Territory List",
       tableRowIDInternalName: "NodeCode",
       tableColDef: [
         { headerName: 'Code', width: '17%', internalName: 'NodeCode', className: "territory-list-code", sort: true, type: "", onClick: "" },
-        { headerName: 'Territory', width: '55%', internalName: 'NodeName', className: "territory-list-territory", type: "", onClick: "",applyColFilter:false },
+        { headerName: 'Territory', width: '55%', internalName: 'NodeName', className: "territory-list-territory", type: "", onClick: "", applyColFilter: false },
         { headerName: 'Brick Count', width: '15%', internalName: 'BrickOutletCount', className: "territory-list-bricks", sort: false, type: "", onClick: "Yes" },
 
       ],
       enabledSearch: true,
-      enabledSerialNo:true,
+      enabledSerialNo: true,
       pageSize: 8,
       displayPaggingSize: 10,
       enabledDataLength: true,
@@ -58,6 +98,42 @@ export class AppComponent implements OnInit {
       enabledColumnFilter: true,
     };
   }
-   showPTable() {   
+  showPTable() {
+  }
+
+  onDrop(src: any, trg: any) {
+    this._moveRow(this.todos.map(x => x.description).indexOf(src.description), this.todos.map(x => x.description).indexOf(trg.description));
+
+    //myArray.map(x => x.hello).indexOf('stevie')
+  }
+
+  _moveRow(src: any, trg: any) {
+    debugger;
+    src = parseInt(src);
+    trg = parseInt(trg);
+
+    // If the element was moved down
+    /*if (src > trg) {
+      for (let i = trg; i < src; i++) {
+        this.todos[i].order++;
+      }
+    } else {  // if the element was moved up
+      for (let i = src + 1; i <= trg; i++) {
+        this.todos[i].order--;
+      }
+    }
+    this.todos[src].order = trg;
+    this.todos.sort((a, b) => a.order - b.order);*/
+
+
+    if (trg >= this.todos.length) {
+      var k = trg - this.todos.length;
+      while ((k--) + 1) {
+        this.todos.push(undefined);
+      }
+    }
+    this.todos.splice(trg, 0, this.todos.splice(src, 1)[0]);
+    return this; // for testing purposes
+
   }
 }
