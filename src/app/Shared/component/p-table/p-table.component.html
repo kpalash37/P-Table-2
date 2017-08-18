@@ -1,13 +1,14 @@
-<div *ngIf="pTableSetting!=null">
-    <div class="col-md-12 p-table-content">
+<div *ngIf="pTableSetting!=null" [ngClass]="{'reflow-modal': activeReflow}">
+    <div class="col-md-12 p-table-content" [ngClass]="{'reflow-content': activeReflow}">
         <div class="panel panel-default">
             <div class="p-table-header">
                 <div class="row">
                     <div class="col col-xs-6">
                         <h3 class="panel-title">{{pTableSetting.tableName}}</h3>
                     </div>
-                    <div class="col col-xs-6 text-right" *ngIf="pTableSetting.enabledRecordCreateBtn">
-                        <button type="button" class="btn btn-sm btn-primary btn-create">Create New</button>
+                    <div class="col col-xs-6 text-right">
+                        <div (click)="fnReflowTable()" style="cursor: pointer" class="reflow-btn"><span class="glyphicon glyphicon-fullscreen reflow-icon" *ngIf="activeReflow==false && customReflowActive==false"></span><span class="glyphicon glyphicon-resize-full reflow-icon" *ngIf="activeReflow || customReflowActive"></span></div>
+                        <button type="button" class="btn btn-sm btn-primary btn-create" *ngIf="pTableSetting.enabledRecordCreateBtn">Create New</button>
                     </div>
                 </div>
             </div>

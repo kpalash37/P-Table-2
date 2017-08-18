@@ -1,24 +1,47 @@
 import { Component, OnInit } from '@angular/core';
-
+declare var jQuery: any;
 
 @Component({
   selector: 'my-app',
   template: `
-  <div class="row">
-    <div class="col-sm-12">
-      <h1>P Table Demo</h1>  
-      <app-p-table [pTableSetting]="territoryListTableBind" [pTableMasterData]="territoryNodes"></app-p-table><br/><br/>
-   </div>
-</div>
-<div class="row">
-   <ul>
-   <div *ngFor="let todo of todos" class="dragable-content" [makeDraggable]="todo" makeDroppable (dropped)="onDrop($event, todo)">
-    <li class="dragable">
-      <span>{{todo.description}}</span>
-    </li>
+  <div  makeDroppable>
+      <div class="row">
+        <div class="col-sm-12">
+        <div style="width:50%">
+           <div [ngClass]="{'custom-reflow-modal': activeReflow}">
+           <button class="btn btn-primary">Create new idea</button>
+             <h1>P Table Demo</h1>  
+              <app-p-table [pTableSetting]="territoryListTableBind" [pTableMasterData]="territoryNodes" (customReflowFn)="fnCustomReflowSetting($event)"></app-p-table><br/><br/>
+            </div>
+         </div>
+         
 
+           <div style="width:50%"></div>
+       </div>
     </div>
-    </ul>
+    <div class="row">
+       <ul>
+       <div *ngFor="let todo of todos" class="dragable-content" [makeDraggable]="todo" makeDroppable (dropped)="onDrop($event, todo)">
+        <li class="dragable">
+          <span>{{todo.description}}</span>
+        </li>
+    
+        </div>
+        </ul>
+     </div>
+
+
+    
+       <div [ng2-draggable]="true">
+        <li class="dragable">
+          <span>dragable</span>
+        </li>
+    
+        </div>
+       
+    
+
+
  </div>
   `,
   styles: [`li.dragable{
@@ -30,6 +53,16 @@ import { Component, OnInit } from '@angular/core';
     list-style:none;
     cursor:move;
     border-bottom-style:solid;
+  }
+  .custom-reflow-modal{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    top: 0px;
+    left: 0px;
+    transition: 0.7s;
+    z-index: 999;
   }
   div.dragable-content{
     padding:5px;
@@ -96,6 +129,7 @@ export class AppComponent implements OnInit {
       enabledDataLength: true,
       enabledCellClick: true,
       enabledColumnFilter: true,
+      enabledCustomReflow: true,
     };
   }
   showPTable() {
@@ -135,5 +169,15 @@ export class AppComponent implements OnInit {
     this.todos.splice(trg, 0, this.todos.splice(src, 1)[0]);
     return this; // for testing purposes
 
+  }
+
+  public activeReflow: boolean = false;
+  fnCustomReflowSetting(event: string) {
+    if (this.activeReflow) {
+      jQuery("#" + event + "-fitlerInfo").hide();
+      this.activeReflow = false;
+    } else {
+      this.activeReflow = true;
+    }
   }
 }

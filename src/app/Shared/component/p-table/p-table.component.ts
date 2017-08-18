@@ -19,6 +19,7 @@ export class PTableComponent implements OnInit, DoCheck {
   @Output() callbackFnOnPageChange: EventEmitter<any> = new EventEmitter<any>() || null;
   @Output() radioButtonCallbackFn: EventEmitter<any> = new EventEmitter<any>() || null;
   @Output() cellClickCallbackFn: EventEmitter<any> = new EventEmitter<any>() || null;
+  @Output() customReflowFn: EventEmitter<any> = new EventEmitter<any>() || null;
   public editUpdateColumn: boolean = true;
   public noRecord = true;
   public pageSize: number;
@@ -43,6 +44,8 @@ export class PTableComponent implements OnInit, DoCheck {
   public popupFilterColor: string = 'black';
   public storedFilteredInfo: any[] = [];
   public columnSearchValue: string = "";
+  public activeReflow: boolean = false;
+  public customReflowActive: boolean = false;
 
   public pModalSetting: any = {
     modalTitle: "",
@@ -57,7 +60,7 @@ export class PTableComponent implements OnInit, DoCheck {
 
 
   ngOnInit() {
-    if(this.pTableSetting==null){//to return without values
+    if (this.pTableSetting == null) {//to return without values
       return false;
     }
 
@@ -99,7 +102,7 @@ export class PTableComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck() {
-    if(this.pTableSetting==null){//to return without values
+    if (this.pTableSetting == null) {//to return without values
       return false;
     }
 
@@ -290,7 +293,7 @@ export class PTableComponent implements OnInit, DoCheck {
     this.setPage(1);
   }
   fnChangePTableDataLength(event: any) {
-    let records=event.target.value;
+    let records = event.target.value;
     this.pageSize = records;
     this.setPage(1);
   }
@@ -434,6 +437,26 @@ export class PTableComponent implements OnInit, DoCheck {
     }
     // this.setPage(1);
   }
+
+  fnReflowTable() {
+    if (this.pTableSetting.enabledCustomReflow) {
+      if (this.customReflowActive) {
+        this.customReflowActive = false;
+      } else {
+        this.customReflowActive = true;
+      }
+      this.customReflowFn.emit(this.pTableSetting.tableID);
+    } else {
+      if (this.activeReflow) {
+        jQuery("#" + this.pTableSetting.tableID + "-fitlerInfo").hide();
+        this.activeReflow = false;
+      } else {
+        this.activeReflow = true;
+      }
+    }
+
+  }
+
   fnCloseCustomFilter() {
     //jQuery("#fitlerInfo").hide();
     jQuery("#" + this.pTableSetting.tableID + "-fitlerInfo").hide();
@@ -443,14 +466,14 @@ export class PTableComponent implements OnInit, DoCheck {
 
 
 export interface IPTableSetting {
-  tableID: string|'P-table-001',
+  tableID: string | 'P-table-001',
   tableClass?: "table table-border",
   tableName?: "p-table-name",
   enabledSerialNo?: false,
   tableRowIDInternalName?: "Id",
   tableColDef: colDef[],
   enabledSearch?: true,
-  enabledCheckbox?: false,  
+  enabledCheckbox?: false,
   enabledEditBtn?: false,
   enabledRecordCreateBtn?: false,
   enabledRadioBtn?: false,
@@ -467,15 +490,16 @@ export interface IPTableSetting {
   radioBtnColumnHeader?: string | 'Select',
   checkboxCallbackFn?: null;
   columnNameSetAsClass?: null
+  enabledCustomReflow?: boolean | false,
 }
 
-export interface colDef{
-  headerName?:string|"",
-  width?:string|"",
-  internalName?:string,
-  className?:string,
-  sort?:Boolean|false,
-  type?:string,
-  onClick?:string| "",
-  applyColFilter?:string|"Apply",
+export interface colDef {
+  headerName?: string | "",
+  width?: string | "",
+  internalName?: string,
+  className?: string,
+  sort?: Boolean | false,
+  type?: string,
+  onClick?: string | "",
+  applyColFilter?: string | "Apply",
 }
