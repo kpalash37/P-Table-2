@@ -1,5 +1,6 @@
 .p-table thead {
     background-color: #F2FFDF;
+   
 }
 
 .p-table-header,
@@ -20,7 +21,7 @@
 
 .p-table {
     margin-bottom: 0px!important;
-    width: 100%;
+    width:100%;
 }
 
 .p-table-header {
@@ -51,280 +52,147 @@
     margin-right: 0px!important;
     padding: 5px 0px 5px 0px!important;
 }
-
-.p-table-content .p-table-footer .p-table-aro-first {
-    left: -6px !important;
+.p-table-content .p-table-footer .p-table-aro-first{
+    left:-6px !important;
 }
 
-.p-table-content .p-table-footer .p-table-aro-last {
-    right: -6px !important;
+.p-table-content .p-table-footer .p-table-aro-last{
+    right:-6px !important;
 }
 
-.p-table-content .search-table .has-feedback {
-    margin-bottom: 0px !important;
+.p-table-content .search-table .has-feedback{
+      margin-bottom: 0px !important;
 }
-
-.p-table th.p-table-row-checkbox {
+.p-table th.p-table-row-checkbox{
     /*width:60px !important;*/
-    min-width: 5% !important;
+    min-width:5% !important;
     text-align: center;
 }
-
-.p-table thead th {
-    vertical-align: middle;
+.col-setting-title{
+    padding: 2px;
+    margin:5px; 
+}
+.p-table-column-up-arrow{
+    color: green;
+    font-size: 16px;
+    cursor: pointer;
+}
+.p-table-column-down-arrow{
+    color: blue;
+    font-size: 16px;
+    cursor: pointer;
 }
 
+.p-table thead th{
+     vertical-align: middle;
+}
+.btn-column-setting{
+    background-color: transparent;
+    border-radius: 10px;
+}
 span.sort-icon {
-    display: block;
-    position: absolute;
-    top: 33%;
-    right: -4px;
-    margin: 0;
-    width: 18px;
-    height: 18px;
-    padding: 0;
+  display: block;
+  position: absolute;
+  top: 33%;
+  right: -4px;
+  margin: 0;
+  width: 18px;
+  height: 18px;
+  padding: 0;
 }
-
-.p-table thead th.sorting span.sort-icon {
-    background-image: url("/app/Shared/component/images/sort_both.png") !important;
+.p-table thead th.sorting span.sort-icon{
+    background-image: url("../app/shared/component/images/sort_both.png") !important;
     background-repeat: no-repeat !important;
     background-position: center right!important;
 }
 
-.p-table thead th.sorting-up span.sort-icon {
-    background-image: url("/app/Shared/component/images/sort_asc.png")!important;
+.p-table thead th.sorting-up span.sort-icon{
+    background-image: url("../app/shared/component/images/sort_asc.png")!important;
     background-repeat: no-repeat!important;
     background-position: center right!important;
 }
 
-.p-table thead th.sorting-down span.sort-icon {
-    background-image: url("/app/Shared/component/images/sort_desc.png")!important;
+.p-table thead th.sorting-down span.sort-icon{
+    background-image: url("../app/shared/component/images/sort_desc.png")!important;
     background-repeat: no-repeat!important;
     background-position: center right!important;
 }
-
-.p-table-content .panel-title {
+.p-table-content .panel-title{
     font-size: 20px;
 }
-
-
-/*New tabular property*/
-
-.p-table-footer .pagination>li>a,
-.p-table-footer .pagination>li>span {
-    padding: 6px 10px !important;
+ /*New tabular property*/ 
+.p-table-footer .pagination>li>a, .p-table-footer .pagination>li>span{
+        padding: 6px 10px !important;
 }
-
-
 /*p-table header default color set*/
-
-.p-table-body .p-table thead th {
-    background: #3b4f5a;
-    color: #fff;
-    border: none;
-    padding: 0px;
-    padding-top: 9px;
-    padding-bottom: 8px;
-    border-right: 1px solid #fff;
-    text-align: center;
+.p-table-body .p-table thead th{
+     background: #3b4f5a; color: #fff; border: none; padding: 0px; padding-top: 9px; padding-bottom: 8px; border-right: 1px solid  #fff; text-align: center;
     font-size: 14px;
 }
-
-#static-table thead tr th.static-pack-description,
-#static-table thead tr th.p-table-row-checkbox,
-#static-table thead tr th.static-market-base {
-    background: #3b4f5a;
-    color: #fff;
-    border: none;
-    padding: 0px;
-    padding-top: 9px;
-    padding-bottom: 8px;
-    border-right: 1px solid #fff;
-    text-align: center;
-    font-size: 14px;
+.p-table-overflow-x{
+    overflow-x: auto !important;
+    overflow-y: hidden;
 }
-
-#dynamic-table thead tr th.dynamic-pack-name,
-#dynamic-table thead tr th.p-table-row-checkbox {
-    background: #3b4f5a;
-    color: #fff;
-    border: none;
-    padding: 0px;
-    padding-top: 9px;
-    padding-bottom: 8px;
-    border-right: 1px solid #fff;
-    text-align: center;
-    font-size: 14px;
+.p-table-overflow-y{
+    overflow-y: auto !important;
+    overflow-x: hidden;
 }
-
-#dynamic-table thead tr th.dynamic-market-base {
-    background: #25b4ff;
-    color: #fff;
-    border: none;
-    padding: 0px;
-    padding-top: 9px;
-    padding-bottom: 8px;
-    border-right: 2px solid #fff;
-    width: 15%;
-    text-align: center;
-    font-size: 14px;
-}
-
-#dynamic-table thead tr th.dynamic-group-no,
-#dynamic-table thead tr th.dynamic-group-name {
-    background: #84bc01;
-    color: #fff;
-    border: none;
-    padding: 0px;
-    padding-top: 9px;
-    padding-bottom: 8px;
-    border-right: 2px solid #fff;
-    width: 7%;
-    text-align: center;
-    font-size: 14px;
-}
-
-#dynamic-table thead tr th.dynamic-factor {
-    background: #fccf38;
-    color: #fff;
-    border: none;
-    padding: 0px;
-    padding-top: 9px;
-    padding-bottom: 8px;
-    border-right: 2px solid #fff;
-    width: 7%;
-    text-align: center;
-    font-size: 14px;
-}
-
-#dynamic-table thead tr th.dynamic-pfc,
-#dynamic-table thead tr th.dynamic-manufacturer,
-#dynamic-table thead tr th.dynamic-atc4,
-#dynamic-table thead tr th.dynamic-nec4,
-#dynamic-table thead tr th.dynamic-product {
-    background: #3b4f5a;
-    color: #fff;
-    border: none;
-    padding: 0px;
-    padding-top: 9px;
-    padding-bottom: 8px;
-    border-right: 1px solid #fff;
-    text-align: center;
-    font-size: 14px;
-}
-
-#dynamic-table tbody tr td.dynamic-market-base {
-    background: #e8f8ff;
-    padding: 0px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border: 2px solid #ffffff;
-    text-align: center;
-}
-
-#dynamic-table tbody tr td::not(.p-table-checkbox),
-#static-table tbody tr td::not(.checkbox-static-table) {
-    text-align: center;
-}
-
-#dynamic-table tbody tr td.dynamic-group-no,
-#dynamic-table tbody tr td.dynamic-group-name {
-    background: #f4f8e9;
-    padding: 0px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border: 2px solid #ffffff;
-}
-
-#dynamic-table tbody tr td.dynamic-factor {
-    background-color: #fef5e6;
-    padding: 0px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border: 2px solid #ffffff;
-}
-
-#territory-list-table thead tr th.territory-list-code,
-#territory-list-table thead tr th.territory-list-territory,
-#territory-list-table thead tr th.territory-list-bricks,
-#territory-list-table thead tr th.p-table-row-radio {
-    background: #3b4f5a;
-    color: #fff;
-    border: none;
-    padding: 0px;
-    padding-top: 9px;
-    padding-bottom: 8px;
-    border-right: 1px solid #fff;
-    text-align: center;
-    font-size: 14px;
-}
-
-#available-bricks-table thead tr th {
-    background: #3b4f5a;
-    color: #fff;
-    border: none;
-    padding: 0px;
-    padding-top: 9px;
-    padding-bottom: 8px;
-    border-right: 1px solid #fff;
-    text-align: center;
-    font-size: 14px;
-}
-
 
 /*Individual record color css*/
-
-.p-table tr.individual-ptable-record-A td {
-    background: #d3f8d3 !important;
+.p-table tr.individual-ptable-record-A td{
+           background:#d3f8d3 !important;
 }
-
-.p-table tr.individual-ptable-record-A:hover td {
-    background: #d3f8d3 !important;
+.p-table tr.individual-ptable-record-A:hover td{
+           background:#d3f8d3 !important;
 }
-
-
 /*end of Individual record color css*/
-
-
 /*   for column resize    */
-
 .p-table thead tr th {
-    position: relative;
+  position: relative;
 }
-
 span.p-table-column-resizer {
-    display: block;
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 0;
-    width: 8px;
-    height: 100%;
-    padding: 0;
-    cursor: col-resize;
-    border: 1px solid transparent;
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  width: 8px;
+  height: 100%;
+  padding: 0;
+  cursor: col-resize;
+  border: 1px solid transparent;
 }
-
-
 /*   end of column resize    */
-
 
 /*    for custom filter */
 
 .p-table-custom-column-filter {
     position: absolute;
-    width: 300px;
-    height: 320px;
-    border: 1px solid black;
-    background-color: #f9f9f9;
+    /*height: 340px;*/
+    min-height: 265px;
+    max-height: 343px;
+    width: 288px;
+    background-color:#fff;
     display: none;
     z-index: 1010;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 6px;
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
 }
-
-.p-table-column-filter-title {
+.p-table-column-filter-title{
+    padding: 8px 10px;
+    margin: 0;
+    font-size: 14px;
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #ebebeb;
+    border-radius: 5px 5px 0 0;
+    margin-bottom: 5px;
+    margin-top: 1px;
+    height: 32px;
+}
+.p-table-column-filter-footer{
+    padding-top: 1px;
     padding-bottom: 5px;
-    padding-top: 5px;
-    font-size: 15px;
 }
 
 label.checkbox-inline {
@@ -337,17 +205,41 @@ label.checkbox-inline {
     margin-right: 5px;
     margin-bottom: 5px;
     min-height: 130px !important;
-    max-height: 200px !important;
+    max-height: 220px !important;
     overflow-y: auto;
-    overflow-x: hidden;
+    overflow-x: auto;
 }
 
 .filter-popup-remove-icon {
     color: red;
-    font-size: 9px;
-    left: -6px !important;
+    font-size: 10px;
+    left: -10px !important;
 }
 
+li.dragable{
+    font-weight:bold;
+    border-radius:10px;
+    background-color:#e7e7e7;
+    padding:5px;
+    width:200px;
+    list-style:none;
+    cursor:move;
+    border-bottom-style:solid;
+  }
+  li.dragable:hover{
+      color: #0099ff;
+  }
+  div.dragable-content{
+    padding:5px;
+  }
+  ul.ul-dragable{
+      padding-left: 0px;
+  }
+
+
+/*  end of custom filter  */
+
+/* start of  reflow */
 .reflow-modal {
     position: fixed;
     width: 100%;
@@ -358,7 +250,6 @@ label.checkbox-inline {
     transition: 0.7s;
     z-index: 999;
 }
-
 .reflow-content {
     margin: 1em auto;
     overflow: visible;
@@ -370,10 +261,16 @@ label.checkbox-inline {
 }
 
 .reflow-btn {
-    border: 1px;
-    border-radius: 5px;
-    background: transparent;
+    background-color: transparent;
+    border-radius: 10px;
+    margin-left: 5px;
 }
+/*End of reflow */
 
-
-/*  end of custom filter  */
+.p-table-custom-filter-icon{
+	font-size:18px;	
+}
+.p-table-content .nav>li>a{
+	    padding: 3px 3px;
+		font-weight:bold;
+}

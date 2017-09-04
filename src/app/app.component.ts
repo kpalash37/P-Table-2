@@ -7,7 +7,7 @@ declare var jQuery: any;
   <div  makeDroppable>
       <div class="row">
         <div class="col-sm-12">
-        <div style="width:50%">
+        <div style="width:90%">
            <div [ngClass]="{'custom-reflow-modal': activeReflow}">
            <button class="btn btn-primary">Create new idea</button>
              <h1>P Table Demo</h1>  
@@ -16,7 +16,7 @@ declare var jQuery: any;
          </div>
          
 
-           <div style="width:50%"></div>
+           <div style="width:10%"></div>
        </div>
     </div>
     <div class="row">
@@ -129,7 +129,9 @@ export class AppComponent implements OnInit {
       enabledDataLength: true,
       enabledCellClick: true,
       enabledColumnFilter: true,
-      enabledCustomReflow: true,
+      enabledReflow: true,
+	  enabledColumnSetting:true,
+	  enabledReordering:true,
     };
   }
   showPTable() {

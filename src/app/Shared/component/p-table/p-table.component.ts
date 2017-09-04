@@ -46,6 +46,10 @@ export class PTableComponent implements OnInit, DoCheck {
   public columnSearchValue: string = "";
   public activeReflow: boolean = false;
   public customReflowActive: boolean = false;
+  public pTableColumnSearch: string = "";
+  public pTableColumnCustomizationList: any[] = [];
+  public pTableColumnReorder: any[] = [];
+  public settingsTabs: any[] = [{ tab: "columnShowHide", tabName: "Show/Hide", active: true }];
 
   public pModalSetting: any = {
     modalTitle: "",
@@ -77,7 +81,9 @@ export class PTableComponent implements OnInit, DoCheck {
     if (this.pTableSetting["enabledRadioBtn"]) {
       this.totalColspan = this.totalColspan + 1;
     }
-
+	 if (this.pTableSetting["enabledReordering"]) {
+		this.settingsTabs.push({ tab: "columnOrder", tabName: "Reorder", active: false });
+	 }
     this.pTableSetting["radioBtnColumnHeader"] = this.pTableSetting["radioBtnColumnHeader"] || 'Select';
     this.pTableSetting["checkboxColumnHeader"] = this.pTableSetting["checkboxColumnHeader"] || 'Select';
 
@@ -97,6 +103,8 @@ export class PTableComponent implements OnInit, DoCheck {
     console.log("call ng init..");
     jQuery("#" + this.pTableSetting["tableID"] + " .column-filter-active").css('color', 'white');
 
+	this.pTableColumnCustomizationList = JSON.parse(JSON.stringify(this.pTableSetting.tableColDef)) || [];
+    this.pTableColumnReorder = JSON.parse(JSON.stringify(this.pTableSetting.tableColDef)) || [];
 
 
   }
@@ -326,21 +334,30 @@ export class PTableComponent implements OnInit, DoCheck {
   }
 
 
-
   fnIndividualColumnFilterContext(columnDef: any, event: any) {
     this.filterCustomColumnName = columnDef.internalName;
     this.filterColumnTitle = columnDef.headerName;
     this.columnSearchValue = "";
     this.columnWiseMasterData = this.fnFindUniqueColumnWithCheckedFlag(this.pTableData, this.filterCustomColumnName) || [];
     this.customFilterUniqueArray = JSON.parse(JSON.stringify(this.columnWiseMasterData));
+    let xPostion = 0;
     //to checked all
     this.filterItemsCheckedAll = true;
 
     console.log(event);
     //to set position of pop-up
+    let totalScreenX = window.screen.width;
 
-    //let ofset = { "top": event.clientY, "left": event.clientX };
-    let ofset = { "top": event.clientY + event.layerY, "left": event.clientX + event.layerX };
+    console.log("total X: " + totalScreenX + " :pageY" + event.pageY + "event.target.offsetParent.offsetTop" + event.target.offsetParent.offsetTop + "target.offsetTop" + event.target.offsetTop + "event.view.scrollY:" + event.view.scrollY)
+    if (event.pageX + 290 > totalScreenX) {
+      xPostion = totalScreenX - 320;
+    } else {
+      xPostion = event.pageX;
+    }
+    let yPosition = event.pageY + 10;
+    //let yPosition = '136';
+    let ofset = { "top": yPosition, "left": xPostion };
+    //let ofset = { "top": event.pageY - event.target.offsetParent.offsetTop - event.target.offsetTop - event.view.scrollY, "left": event.pageX - event.target.offsetParent.offsetLeft - event.target.offsetLeft - event.view.scrollX };
     //jQuery("#fitlerInfo").css(ofset).show();
     jQuery("#" + this.pTableSetting.tableID + "-fitlerInfo").css(ofset).show();
 
@@ -400,6 +417,110 @@ export class PTableComponent implements OnInit, DoCheck {
     this.filterItemsCheckedAll = true;
     return filteredData;
   }
+  
+    async fnApplyCustomCustomization() {
+    this.pTableSetting.tableColDef.forEach((rec: any) => {
+      let columnLooping = this.pTableColumnCustomizationList.filter((record: any) => { if (record.internalName == rec.internalName) { return true } else { return false } }) || [];
+      if (columnLooping.length > 0) {
+        rec.visible = columnLooping[0].visible;
+      } else {
+        rec.visible = false;
+      }
+    });
+
+    //assign again 
+    if (this.storedFilteredInfo.length > 0) {
+      this.pTableData = JSON.parse(JSON.stringify(this.pTableMasterData)) || [];
+      this.storedFilteredInfo.forEach((rec: any) => {
+        jQuery("#" + this.pTableSetting["tableID"] + " #filter-icon-" + rec.columnName).css('color', 'white');
+      });
+      this.storedFilteredInfo = [];
+      this.setPage(1);
+    }
+
+    //await this.fnShowPreviousFilteredState();   
+    this.pTableColumnCustomizationList = JSON.parse(JSON.stringify(this.pTableSetting.tableColDef));
+    this.pTableColumnReorder = JSON.parse(JSON.stringify(this.pTableSetting.tableColDef)) || [];
+  }
+  
+   fnPTableColumnCustomizationSearch(searchVal: string) {
+    this.pTableColumnCustomizationList = this.pTableSetting.tableColDef.filter((record: any) => { if (record.headerName.toLowerCase().includes(searchVal.toLowerCase())) { return true } else { return false } }) || [];
+  }
+  
+  fnCloseCustomFilter() {
+    //jQuery("#fitlerInfo").hide();
+    jQuery("#" + this.pTableSetting.tableID + "-fitlerInfo").hide();
+  }
+
+  public activeTabName: string = "columnShowHide";
+  selectTab(tab: any) {
+    this.settingsTabs.forEach((rec: any) => {
+      if (rec.tab == tab.tab) {
+        rec.active = true;
+      } else {
+        rec.active = false;
+      }
+    });
+    this.activeTabName = tab.tab;
+  }
+
+  fnChangeColumnOrder(colDef: any, index: any, status: string) {
+    let old_index = index;
+    let new_index: number = 0;
+    debugger;
+    //to check valid index
+    if (index <= 0 && status == 'up') {
+      return false;
+
+    } else if (index >= this.pTableColumnReorder.length - 1 && status == 'down') {
+      return false;
+    }
+
+
+
+    if (status == 'up') {
+      new_index = index - 1;
+    } else {
+      new_index = index + 1;
+    }
+
+    if (new_index >= this.pTableColumnReorder.length) {
+      var k = new_index - this.pTableColumnReorder.length;
+      while ((k--) + 1) {
+        this.pTableColumnReorder.push(undefined);
+      }
+    }
+    this.pTableColumnReorder.splice(new_index, 0, this.pTableColumnReorder.splice(old_index, 1)[0]);
+  }
+
+  fnApplyReorderColumn() {
+    this.pTableSetting.tableColDef = JSON.parse(JSON.stringify(this.pTableColumnReorder));
+    this.pTableColumnCustomizationList = JSON.parse(JSON.stringify(this.pTableSetting.tableColDef)) || [];
+  }
+
+  onDrop(src: any, trg: any) {
+    this.fnModeDragDropContent(this.pTableColumnReorder.map(x => x.internalName).indexOf(src.internalName), this.pTableColumnReorder.map(x => x.internalName).indexOf(trg.internalName));
+
+    //myArray.map(x => x.hello).indexOf('stevie')
+  }
+
+  fnModeDragDropContent(src: any, trg: any) {
+    src = parseInt(src);
+    trg = parseInt(trg);
+
+    if (trg >= this.pTableColumnReorder.length) {
+      var k = trg - this.pTableColumnReorder.length;
+      while ((k--) + 1) {
+        this.pTableColumnReorder.push(undefined);
+      }
+    }
+    this.pTableColumnReorder.splice(trg, 0, this.pTableColumnReorder.splice(src, 1)[0]);
+    return this; // for testing purposes
+
+  }
+
+  public tempStyle: ptableStyle[] = [];
+  
 
   fnFindUniqueColumnWithCheckedFlag(objectSet: any[], findKey: any, ): any[] {
     var o = {}, i, l = objectSet.length, r = [];
@@ -438,28 +559,51 @@ export class PTableComponent implements OnInit, DoCheck {
     // this.setPage(1);
   }
 
-  fnReflowTable() {
+ fnReflowTable() {
     if (this.pTableSetting.enabledCustomReflow) {
       if (this.customReflowActive) {
         this.customReflowActive = false;
+        this.fnResetStyle("retrive");
       } else {
         this.customReflowActive = true;
+        this.fnResetStyle("reset");
       }
       this.customReflowFn.emit(this.pTableSetting.tableID);
     } else {
       if (this.activeReflow) {
         jQuery("#" + this.pTableSetting.tableID + "-fitlerInfo").hide();
         this.activeReflow = false;
+        this.fnResetStyle("retrive");
       } else {
+        this.fnResetStyle("reset");
         this.activeReflow = true;
       }
     }
 
   }
+  
+   fnResetStyle(action: string) {
+    if (action == "reset") {
+      //remove previous style
+      //if (this.pTableSetting.pTableStyle.overflowContentWidth != undefined && this.pTableSetting.pTableStyle.overflowContentWidth != null) {
+      if (this.pTableSetting.pTableStyle != undefined && this.pTableSetting.pTableStyle != null) {
+        this.tempStyle = [{ tableOverflow: this.pTableSetting.pTableStyle.tableOverflow || false, tableOverflowX: this.pTableSetting.pTableStyle.tableOverflowX || false, tableOverflowY: this.pTableSetting.pTableStyle.tableOverflowY || false, overflowContentWidth: this.pTableSetting.pTableStyle.overflowContentWidth || null, overflowContentHeight: this.pTableSetting.pTableStyle.overflowContentHeight || null }];
+        this.pTableSetting.pTableStyle.overflowContentWidth = null;
+        this.pTableSetting.pTableStyle.tableOverflowY = true;
+        this.pTableSetting.pTableStyle.tableOverflow = false;
+      }
+    }else if(action=="retrive"){
+      //to reset previous style
+        if (this.tempStyle.length > 0) {
+          this.pTableSetting.pTableStyle.overflowContentWidth = this.tempStyle[0].overflowContentWidth;
+          this.pTableSetting.pTableStyle.overflowContentHeight = this.tempStyle[0].overflowContentHeight;
+          this.pTableSetting.pTableStyle.tableOverflow = this.tempStyle[0].tableOverflow;
+          this.pTableSetting.pTableStyle.tableOverflowX = this.tempStyle[0].tableOverflowX;
+          this.pTableSetting.pTableStyle.tableOverflowY = this.tempStyle[0].tableOverflowY;
+        }
 
-  fnCloseCustomFilter() {
-    //jQuery("#fitlerInfo").hide();
-    jQuery("#" + this.pTableSetting.tableID + "-fitlerInfo").hide();
+    }
+
   }
 
 }
@@ -488,9 +632,15 @@ export interface IPTableSetting {
   pageSize?: 10,
   displayPaggingSize?: 10,
   radioBtnColumnHeader?: string | 'Select',
-  checkboxCallbackFn?: null;
-  columnNameSetAsClass?: null
+  checkboxCallbackFn?: null,
+  columnNameSetAsClass?: null,
+  enabledColumnSetting?: false,
+  enabledReordering?: false,
+  tableHeaderFooterVisibility?: boolean | true,
+  pTableStyle?: ptableStyle,
   enabledCustomReflow?: boolean | false,
+  enabledReflow?: boolean | false,  
+  
 }
 
 export interface colDef {
@@ -501,5 +651,16 @@ export interface colDef {
   sort?: Boolean | false,
   type?: string,
   onClick?: string | "",
-  applyColFilter?: string | "Apply",
+  applyColFilter?: string | "Apply",  
+  visible?: boolean | true,
+  alwaysVisible: boolean | false
+}
+
+export interface ptableStyle {
+  tableOverflow?: boolean | false,
+  tableOverflowX?: boolean | false,
+  tableOverflowY?: boolean | false,
+  overflowContentWidth?: string | '',
+  overflowContentHeight?: null,
+
 }

@@ -22,6 +22,7 @@
       '@angular/http': 'npm:@angular/http/bundles/http.umd.js',
       '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
       '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
+	  "ngx-popover": "node_modules/ngx-popover",
 
       // other libraries
       'rxjs':                      'npm:rxjs',
@@ -37,6 +38,7 @@
           }
         }
       },
+	  "ngx-popover": { "main": "index.js", "defaultExtension": "js" },
       rxjs: {
         defaultExtension: 'js'
       }
