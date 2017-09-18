@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ConfirmService } from './Shared/component/p-confirmation/confirm.service';
+import {ConfirmComponent} from './Shared/component/p-confirmation/confirm.component';
 declare var jQuery: any;
 
 @Component({
@@ -39,8 +41,9 @@ declare var jQuery: any;
     
         </div>
        
-    
-
+      
+    <button class="btn btn-primary" (click)="prompt()">click me</button>
+     <p-confirm></p-confirm>
 
  </div>
   `,
@@ -81,7 +84,7 @@ export class AppComponent implements OnInit {
   { order: 3, description: 'H Share blog on twitter' },
   { order: 3, description: 'I Share blog on twitter' }]
 
-  constructor() {
+  constructor(private _confirm: ConfirmService) {
     this.territoryNodes = [
       { NodeCode: '10', NodeName: 'Node A', BrickOutletCount: 10 },
       { NodeCode: '11', NodeName: 'Node B', BrickOutletCount: 10 },
@@ -130,8 +133,8 @@ export class AppComponent implements OnInit {
       enabledCellClick: true,
       enabledColumnFilter: true,
       enabledReflow: true,
-	  enabledColumnSetting:true,
-	  enabledReordering:true,
+      enabledColumnSetting: true,
+      enabledReordering: true,
     };
   }
   showPTable() {
@@ -173,6 +176,14 @@ export class AppComponent implements OnInit {
 
   }
 
+  public prompt() {
+    this._confirm.activate('Confirm?')
+      .then(result => {
+        alert(result);
+      }).catch(error => {
+        console.log(error);
+      });
+  }
   public activeReflow: boolean = false;
   fnCustomReflowSetting(event: string) {
     if (this.activeReflow) {
