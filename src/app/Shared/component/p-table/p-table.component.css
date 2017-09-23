@@ -1,6 +1,5 @@
 .p-table thead {
     background-color: #F2FFDF;
-   
 }
 
 .p-table-header,
@@ -21,7 +20,7 @@
 
 .p-table {
     margin-bottom: 0px!important;
-    width:100%;
+    width: 100%;
 }
 
 .p-table-header {
@@ -52,134 +51,172 @@
     margin-right: 0px!important;
     padding: 5px 0px 5px 0px!important;
 }
-.p-table-content .p-table-footer .p-table-aro-first{
-    left:-6px !important;
+
+.p-table-content .p-table-footer .p-table-aro-first {
+    left: -6px !important;
 }
 
-.p-table-content .p-table-footer .p-table-aro-last{
-    right:-6px !important;
+.p-table-content .p-table-footer .p-table-aro-last {
+    right: -6px !important;
 }
 
-.p-table-content .search-table .has-feedback{
-      margin-bottom: 0px !important;
+.p-table-content .search-table .has-feedback {
+    margin-bottom: 0px !important;
 }
-.p-table th.p-table-row-checkbox{
+
+.p-table th.p-table-row-checkbox {
     /*width:60px !important;*/
-    min-width:5% !important;
+    min-width: 5% !important;
     text-align: center;
 }
-.col-setting-title{
+
+.col-setting-title {
     padding: 2px;
-    margin:5px; 
+    margin: 5px;
 }
-.p-table-column-up-arrow{
+
+.p-table-column-up-arrow {
     color: green;
     font-size: 16px;
     cursor: pointer;
 }
-.p-table-column-down-arrow{
+
+.p-table-column-down-arrow {
     color: blue;
     font-size: 16px;
     cursor: pointer;
 }
 
-.p-table thead th{
-     vertical-align: middle;
+.p-table thead th {
+    vertical-align: middle;
 }
-.btn-column-setting{
+
+.btn-column-setting {
     background-color: transparent;
     border-radius: 10px;
 }
+
 span.sort-icon {
-  display: block;
-  position: absolute;
-  top: 33%;
-  right: -4px;
-  margin: 0;
-  width: 18px;
-  height: 18px;
-  padding: 0;
+    display: block;
+    position: absolute;
+    top: 33%;
+    right: -4px;
+    margin: 0;
+    width: 18px;
+    height: 18px;
+    padding: 0;
 }
-.p-table thead th.sorting span.sort-icon{
-    background-image: url("../app/shared/component/images/sort_both.png") !important;
+
+.p-table thead th.sorting span.sort-icon {
+    background-image: url("/assets/images/sort_both.png") !important;
     background-repeat: no-repeat !important;
     background-position: center right!important;
 }
 
-.p-table thead th.sorting-up span.sort-icon{
-    background-image: url("../app/shared/component/images/sort_asc.png")!important;
+.p-table thead th.sorting-up span.sort-icon {
+    background-image: url("/assets/images/sort_asc.png")!important;
     background-repeat: no-repeat!important;
     background-position: center right!important;
 }
 
-.p-table thead th.sorting-down span.sort-icon{
-    background-image: url("../app/shared/component/images/sort_desc.png")!important;
+.p-table thead th.sorting-down span.sort-icon {
+    background-image: url("/assets/images/sort_desc.png")!important;
     background-repeat: no-repeat!important;
     background-position: center right!important;
 }
-.p-table-content .panel-title{
+
+.p-table-content .panel-title {
     font-size: 20px;
 }
- /*New tabular property*/ 
-.p-table-footer .pagination>li>a, .p-table-footer .pagination>li>span{
-        padding: 6px 10px !important;
+
+
+/*New tabular property*/
+
+.p-table-footer .pagination>li>a,
+.p-table-footer .pagination>li>span {
+    padding: 6px 10px !important;
 }
+
+
 /*p-table header default color set*/
-.p-table-body .p-table thead th{
-     background: #3b4f5a; color: #fff; border: none; padding: 0px; padding-top: 9px; padding-bottom: 8px; border-right: 1px solid  #fff; text-align: center;
+
+.p-table-body .p-table thead th {
+    background: #3b4f5a;
+    color: #fff;
+    border: none;
+    padding: 0px;
+    padding-top: 9px;
+    padding-bottom: 8px;
+    border-right: 1px solid #fff;
+    text-align: center;
     font-size: 14px;
 }
-.p-table-overflow-x{
+
+.p-table-overflow-x {
     overflow-x: auto !important;
     overflow-y: hidden;
 }
-.p-table-overflow-y{
+
+.p-table-overflow-y {
     overflow-y: auto !important;
     overflow-x: hidden;
 }
 
+
 /*Individual record color css*/
-.p-table tr.individual-ptable-record-A td{
-           background:#d3f8d3 !important;
+
+.p-table tr.individual-ptable-record-A td {
+    background: #d3f8d3 !important;
 }
-.p-table tr.individual-ptable-record-A:hover td{
-           background:#d3f8d3 !important;
+
+.p-table tr.individual-ptable-record-A:hover td {
+    background: #d3f8d3 !important;
 }
+
+
 /*end of Individual record color css*/
+
+
 /*   for column resize    */
+
 .p-table thead tr th {
-  position: relative;
+    position: relative;
 }
+
 span.p-table-column-resizer {
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 0;
-  width: 8px;
-  height: 100%;
-  padding: 0;
-  cursor: col-resize;
-  border: 1px solid transparent;
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    width: 8px;
+    height: 100%;
+    padding: 0;
+    cursor: col-resize;
+    border: 1px solid transparent;
 }
+
+
 /*   end of column resize    */
+
 
 /*    for custom filter */
 
 .p-table-custom-column-filter {
     position: absolute;
     /*height: 340px;*/
-    min-height: 265px;
-    max-height: 343px;
+    min-height: 263px;
+    max-height: 349px;
     width: 288px;
-    background-color:#fff;
+    background-color: #fff;
     display: none;
     z-index: 1010;
-    border: 1px solid rgba(0,0,0,.2);
+    border: 1px solid rgba(0, 0, 0, .2);
     border-radius: 6px;
-    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
 }
-.p-table-column-filter-title{
+
+.p-table-column-filter-title {
     padding: 8px 10px;
     margin: 0;
     font-size: 14px;
@@ -190,7 +227,8 @@ span.p-table-column-resizer {
     margin-top: 1px;
     height: 32px;
 }
-.p-table-column-filter-footer{
+
+.p-table-column-filter-footer {
     padding-top: 1px;
     padding-bottom: 5px;
 }
@@ -216,30 +254,67 @@ label.checkbox-inline {
     left: -10px !important;
 }
 
-li.dragable{
-    font-weight:bold;
-    border-radius:10px;
-    background-color:#e7e7e7;
-    padding:5px;
-    width:200px;
-    list-style:none;
-    cursor:move;
-    border-bottom-style:solid;
-  }
-  li.dragable:hover{
-      color: #0099ff;
-  }
-  div.dragable-content{
-    padding:5px;
-  }
-  ul.ul-dragable{
-      padding-left: 0px;
-  }
+li.dragable {
+    font-weight: bold;
+    border-radius: 10px;
+    background-color: #e7e7e7;
+    padding: 5px;
+    width: 200px;
+    list-style: none;
+    cursor: move;
+    border-bottom-style: solid;
+}
+
+li.dragable:hover {
+    color: #0099ff;
+}
+
+div.dragable-content {
+    padding: 5px;
+}
+
+ul.ul-dragable {
+    padding-left: 0px;
+}
+
+.p-table-custom-column-filter .arrow_box {
+    position: relative;
+    border: 4px solid #E8F5E9!important;
+    border-radius: 5px 5px 0 0;
+}
+
+.p-table-custom-column-filter .arrow_box:after,
+.p-table-custom-column-filter .arrow_box:before {
+    bottom: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.p-table-custom-column-filter .arrow_box:after {
+    border-color: rgba(136, 183, 213, 0);
+    border-bottom-color: #E8F5E9!important;
+    background-color: transparent;
+    border-width: 20px;
+    margin-left: -20px;
+}
+
+.p-table-custom-column-filter .arrow_box:before {
+    border-color: rgba(194, 225, 245, 0);
+    border-width: 36px;
+    margin-left: -36px;
+}
 
 
 /*  end of custom filter  */
 
+
 /* start of  reflow */
+
 .reflow-modal {
     position: fixed;
     width: 100%;
@@ -250,6 +325,7 @@ li.dragable{
     transition: 0.7s;
     z-index: 999;
 }
+
 .reflow-content {
     margin: 1em auto;
     overflow: visible;
@@ -265,12 +341,132 @@ li.dragable{
     border-radius: 10px;
     margin-left: 5px;
 }
+
+
 /*End of reflow */
 
-.p-table-custom-filter-icon{
-	font-size:18px;	
+.p-table-custom-filter-icon {
+    font-size: 18px;
 }
-.p-table-content .nav>li>a{
-	    padding: 3px 3px;
-		font-weight:bold;
+
+.p-table-content .nav>li>a {
+    padding: 3px 3px;
+    font-weight: bold;
+}
+
+.p-table-edit-icon {
+    font-size: 18px;
+    padding: 3px;
+    color: green;
+    background-color: transparent;
+    padding-right: 8px;
+    cursor: pointer;
+}
+
+.p-table-delete-icon {
+    font-size: 18px;
+    color: red;
+    background-color: transparent;
+    padding: 3px;
+    cursor: pointer;
+}
+
+
+/* checkbox- switch*/
+
+.p-table-scroll-body .switch {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 22px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.p-table-scroll-body .switch input {
+    display: none;
+}
+
+.p-table-scroll-body .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.p-table-scroll-body .slider:before {
+    position: absolute;
+    content: "";
+    height: 17px;
+    width: 17px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.p-table-scroll-body input:checked+.slider {
+    background-color: green;
+}
+
+.p-table-scroll-body input:focus+.slider {
+    box-shadow: 0 0 1px green;
+}
+
+.p-table-scroll-body input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+
+/* Rounded sliders */
+
+.p-table-scroll-body .slider.round {
+    border-radius: 28px;
+}
+
+.p-table-scroll-body .slider.round:before {
+    border-radius: 50%;
+}
+
+
+/* Rounded sliders */
+
+.p-table-scroll-body .slider.round {
+    border-radius: 34px;
+}
+
+.p-table-scroll-body .slider.round:before {
+    border-radius: 50%;
+}
+
+
+/*Custome color not component */
+
+
+/*Rejected*/
+
+.individual-ptable-record-Rejected td {
+    background-color: #F5CDCD !important;
+}
+
+
+/*Accepted*/
+
+.individual-ptable-record-Accepted td {
+    background-color: #DCF5DC !important;
+}
+
+
+/*Ignored*/
+
+.individual-ptable-record-Ignored td {
+    background-color: #F8E8BA !important;
 }

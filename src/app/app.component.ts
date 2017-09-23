@@ -34,12 +34,6 @@ declare var jQuery: any;
 
 
     
-       <div [ng2-draggable]="true">
-        <li class="dragable">
-          <span>dragable</span>
-        </li>
-    
-        </div>
        
       
     <button class="btn btn-primary" (click)="prompt()">click me</button>
@@ -151,20 +145,7 @@ export class AppComponent implements OnInit {
     src = parseInt(src);
     trg = parseInt(trg);
 
-    // If the element was moved down
-    /*if (src > trg) {
-      for (let i = trg; i < src; i++) {
-        this.todos[i].order++;
-      }
-    } else {  // if the element was moved up
-      for (let i = src + 1; i <= trg; i++) {
-        this.todos[i].order--;
-      }
-    }
-    this.todos[src].order = trg;
-    this.todos.sort((a, b) => a.order - b.order);*/
-
-
+   
     if (trg >= this.todos.length) {
       var k = trg - this.todos.length;
       while ((k--) + 1) {

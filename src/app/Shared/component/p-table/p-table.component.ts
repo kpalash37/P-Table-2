@@ -6,8 +6,8 @@ declare var jQuery: any;
 @Component({
   selector: 'app-p-table',
   changeDetection: ChangeDetectionStrategy.Default,
-  templateUrl: '/app/Shared/component/p-table/p-table.component.html',
-  styleUrls: ['app/Shared/component/p-table/p-table.component.css'],
+  templateUrl: './p-table.component.html',
+  styleUrls: ['./p-table.component.css'],
   providers: [PagerService],
 
 })
@@ -100,7 +100,6 @@ export class PTableComponent implements OnInit, DoCheck {
     this.storedFilteredInfo = [];
     this.columnSearchValue = "";
     this.globalSearchValue = "";
-    console.log("call ng init..");
     jQuery("#" + this.pTableSetting["tableID"] + " .column-filter-active").css('color', 'white');
 
 	this.pTableColumnCustomizationList = JSON.parse(JSON.stringify(this.pTableSetting.tableColDef)) || [];
@@ -255,6 +254,10 @@ export class PTableComponent implements OnInit, DoCheck {
     if (!isSorting) {
       return;
     }
+    if(this.pTableMasterData.length<1){
+      return;
+    }
+    //console.log(this.pTableMasterData);
     if (jQuery("#" + pTableID + " thead th." + colName).hasClass("sorting")) {
       jQuery("#" + pTableID + " thead th.sorting-active").addClass("sorting").removeClass("sorting-down").removeClass("sorting-up");
       jQuery("#" + pTableID + " thead th." + colName).addClass("sorting-up").removeClass("sorting");
@@ -344,17 +347,17 @@ export class PTableComponent implements OnInit, DoCheck {
     //to checked all
     this.filterItemsCheckedAll = true;
 
-    console.log(event);
+    //console.log(event);
     //to set position of pop-up
     let totalScreenX = window.screen.width;
 
-    console.log("total X: " + totalScreenX + " :pageY" + event.pageY + "event.target.offsetParent.offsetTop" + event.target.offsetParent.offsetTop + "target.offsetTop" + event.target.offsetTop + "event.view.scrollY:" + event.view.scrollY)
+    //console.log("total X: " + totalScreenX + " :pageY" + event.pageY + "event.target.offsetParent.offsetTop" + event.target.offsetParent.offsetTop + "target.offsetTop" + event.target.offsetTop + "event.view.scrollY:" + event.view.scrollY)
     if (event.pageX + 290 > totalScreenX) {
       xPostion = totalScreenX - 320;
     } else {
       xPostion = event.pageX;
     }
-    let yPosition = event.pageY + 10;
+    let yPosition = event.pageY + 20;
     //let yPosition = '136';
     let ofset = { "top": yPosition, "left": xPostion };
     //let ofset = { "top": event.pageY - event.target.offsetParent.offsetTop - event.target.offsetTop - event.view.scrollY, "left": event.pageX - event.target.offsetParent.offsetLeft - event.target.offsetLeft - event.view.scrollX };
@@ -560,6 +563,7 @@ export class PTableComponent implements OnInit, DoCheck {
   }
 
  fnReflowTable() {
+   debugger;
     if (this.pTableSetting.enabledCustomReflow) {
       if (this.customReflowActive) {
         this.customReflowActive = false;

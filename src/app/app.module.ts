@@ -10,10 +10,9 @@ import {ConfirmService} from './Shared/component/p-confirmation/confirm.service'
 import {ConfirmComponent} from './Shared/component/p-confirmation/confirm.component';
 
 import { FormsModule } from '@angular/forms';
-import { PopoverModule } from 'ngx-popover';
 
 @NgModule({
-  imports:      [ BrowserModule,FormsModule,PopoverModule ],
+  imports:      [ BrowserModule,FormsModule ],
   declarations: [ AppComponent,PTableComponent,MakeDraggable,MakeDroppable,Draggable,ConfirmComponent],
   bootstrap:    [ AppComponent ],
   providers:[ConfirmService]
