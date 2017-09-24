@@ -121,14 +121,18 @@ export class AppComponent implements OnInit {
       ],
       enabledSearch: true,
       enabledSerialNo: true,
-      pageSize: 8,
-      displayPaggingSize: 10,
+      pageSize: 12,
       enabledDataLength: true,
       enabledCellClick: true,
       enabledColumnFilter: true,
       enabledReflow: true,
       enabledColumnSetting: true,
       enabledReordering: true,
+      enabledPagination:false,
+      enabledAutoScrolled:true,
+      pTableStyle:{ 
+        tableOverflowY:true,
+        overflowContentHeight: '350px'}
     };
   }
   showPTable() {

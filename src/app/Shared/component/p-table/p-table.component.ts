@@ -81,17 +81,21 @@ export class PTableComponent implements OnInit, DoCheck {
     if (this.pTableSetting["enabledRadioBtn"]) {
       this.totalColspan = this.totalColspan + 1;
     }
-	 if (this.pTableSetting["enabledReordering"]) {
-		this.settingsTabs.push({ tab: "columnOrder", tabName: "Reorder", active: false });
-	 }
+    if (this.pTableSetting["enabledReordering"]) {
+      this.settingsTabs.push({ tab: "columnOrder", tabName: "Reorder", active: false });
+    }
     this.pTableSetting["radioBtnColumnHeader"] = this.pTableSetting["radioBtnColumnHeader"] || 'Select';
     this.pTableSetting["checkboxColumnHeader"] = this.pTableSetting["checkboxColumnHeader"] || 'Select';
 
     this.totalColspan = this.totalColspan + this.pTableSetting["tableColDef"].length;
     this.maximumPaggingDisplay = this.pTableSetting["displayPaggingSize"] || 10;
-    if (!this.pTableSetting["enabledPagination"] && this.pTableSetting["enabledPagination"] != undefined) {
+    if(this.pTableSetting["enabledAutoScrolled"]){
       this.enabledPagination = false;
-      this.pageSize = 10000;
+      this.pageSize = this.pTableSetting["pageSize"] || 30;
+    }
+    else if (!this.pTableSetting["enabledPagination"] && this.pTableSetting["enabledPagination"] != undefined) {
+      this.enabledPagination = false;
+      this.pageSize = 30000;
     } else {
       this.pageSize = this.pTableSetting["pageSize"] || 10;
     }
@@ -102,7 +106,7 @@ export class PTableComponent implements OnInit, DoCheck {
     this.globalSearchValue = "";
     jQuery("#" + this.pTableSetting["tableID"] + " .column-filter-active").css('color', 'white');
 
-	this.pTableColumnCustomizationList = JSON.parse(JSON.stringify(this.pTableSetting.tableColDef)) || [];
+    this.pTableColumnCustomizationList = JSON.parse(JSON.stringify(this.pTableSetting.tableColDef)) || [];
     this.pTableColumnReorder = JSON.parse(JSON.stringify(this.pTableSetting.tableColDef)) || [];
 
 
@@ -254,7 +258,7 @@ export class PTableComponent implements OnInit, DoCheck {
     if (!isSorting) {
       return;
     }
-    if(this.pTableMasterData.length<1){
+    if (this.pTableMasterData.length < 1) {
       return;
     }
     //console.log(this.pTableMasterData);
@@ -420,8 +424,8 @@ export class PTableComponent implements OnInit, DoCheck {
     this.filterItemsCheckedAll = true;
     return filteredData;
   }
-  
-    async fnApplyCustomCustomization() {
+
+  async fnApplyCustomCustomization() {
     this.pTableSetting.tableColDef.forEach((rec: any) => {
       let columnLooping = this.pTableColumnCustomizationList.filter((record: any) => { if (record.internalName == rec.internalName) { return true } else { return false } }) || [];
       if (columnLooping.length > 0) {
@@ -445,11 +449,11 @@ export class PTableComponent implements OnInit, DoCheck {
     this.pTableColumnCustomizationList = JSON.parse(JSON.stringify(this.pTableSetting.tableColDef));
     this.pTableColumnReorder = JSON.parse(JSON.stringify(this.pTableSetting.tableColDef)) || [];
   }
-  
-   fnPTableColumnCustomizationSearch(searchVal: string) {
+
+  fnPTableColumnCustomizationSearch(searchVal: string) {
     this.pTableColumnCustomizationList = this.pTableSetting.tableColDef.filter((record: any) => { if (record.headerName.toLowerCase().includes(searchVal.toLowerCase())) { return true } else { return false } }) || [];
   }
-  
+
   fnCloseCustomFilter() {
     //jQuery("#fitlerInfo").hide();
     jQuery("#" + this.pTableSetting.tableID + "-fitlerInfo").hide();
@@ -523,7 +527,7 @@ export class PTableComponent implements OnInit, DoCheck {
   }
 
   public tempStyle: ptableStyle[] = [];
-  
+
 
   fnFindUniqueColumnWithCheckedFlag(objectSet: any[], findKey: any, ): any[] {
     var o = {}, i, l = objectSet.length, r = [];
@@ -562,8 +566,8 @@ export class PTableComponent implements OnInit, DoCheck {
     // this.setPage(1);
   }
 
- fnReflowTable() {
-   debugger;
+  fnReflowTable() {
+    debugger;
     if (this.pTableSetting.enabledCustomReflow) {
       if (this.customReflowActive) {
         this.customReflowActive = false;
@@ -585,8 +589,8 @@ export class PTableComponent implements OnInit, DoCheck {
     }
 
   }
-  
-   fnResetStyle(action: string) {
+
+  fnResetStyle(action: string) {
     if (action == "reset") {
       //remove previous style
       //if (this.pTableSetting.pTableStyle.overflowContentWidth != undefined && this.pTableSetting.pTableStyle.overflowContentWidth != null) {
@@ -596,18 +600,34 @@ export class PTableComponent implements OnInit, DoCheck {
         this.pTableSetting.pTableStyle.tableOverflowY = true;
         this.pTableSetting.pTableStyle.tableOverflow = false;
       }
-    }else if(action=="retrive"){
+    } else if (action == "retrive") {
       //to reset previous style
-        if (this.tempStyle.length > 0) {
-          this.pTableSetting.pTableStyle.overflowContentWidth = this.tempStyle[0].overflowContentWidth;
-          this.pTableSetting.pTableStyle.overflowContentHeight = this.tempStyle[0].overflowContentHeight;
-          this.pTableSetting.pTableStyle.tableOverflow = this.tempStyle[0].tableOverflow;
-          this.pTableSetting.pTableStyle.tableOverflowX = this.tempStyle[0].tableOverflowX;
-          this.pTableSetting.pTableStyle.tableOverflowY = this.tempStyle[0].tableOverflowY;
-        }
+      if (this.tempStyle.length > 0) {
+        this.pTableSetting.pTableStyle.overflowContentWidth = this.tempStyle[0].overflowContentWidth;
+        this.pTableSetting.pTableStyle.overflowContentHeight = this.tempStyle[0].overflowContentHeight;
+        this.pTableSetting.pTableStyle.tableOverflow = this.tempStyle[0].tableOverflow;
+        this.pTableSetting.pTableStyle.tableOverflowX = this.tempStyle[0].tableOverflowX;
+        this.pTableSetting.pTableStyle.tableOverflowY = this.tempStyle[0].tableOverflowY;
+      }
 
     }
 
+  }
+
+  onScroll(event, doc) {
+    //console.log(event)
+    if (this.pTableSetting.enabledAutoScrolled) {
+      const scrollBottom = event.target.scrollHeight;
+      const scrollTop = event.target.scrollTop;
+      const scrollHeight = event.target.scrollHeight;
+      const offsetHeight = event.target.offsetHeight;
+      const scrollPosition = scrollTop + offsetHeight;
+      const pageHeight = window.screen.height; const scrollTreshold = scrollHeight - pageHeight;
+      if ((scrollBottom - scrollTop) == offsetHeight) {
+        this.pageSize = this.pageSize + 10;
+        this.setPage(1);
+      }
+    }
   }
 
 }
@@ -643,8 +663,9 @@ export interface IPTableSetting {
   tableHeaderFooterVisibility?: boolean | true,
   pTableStyle?: ptableStyle,
   enabledCustomReflow?: boolean | false,
-  enabledReflow?: boolean | false,  
-  
+  enabledReflow?: boolean | false,
+  enabledAutoScrolled?: boolean | false,
+
 }
 
 export interface colDef {
@@ -655,7 +676,7 @@ export interface colDef {
   sort?: Boolean | false,
   type?: string,
   onClick?: string | "",
-  applyColFilter?: string | "Apply",  
+  applyColFilter?: string | "Apply",
   visible?: boolean | true,
   alwaysVisible: boolean | false
 }

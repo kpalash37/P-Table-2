@@ -16,6 +16,7 @@
                             </div>
 
                             <div *ngIf="pTableSetting.enabledColumnSetting">
+                                <button type="button" class="pull-right btn-column-setting" popoverTitle="Column customization" ripple-radius> Columns  <span class="glyphicon glyphicon-cog" style="color:green"></span></button>
                                 <!-- <button type="button" class="pull-right btn-column-setting" [popover]="pTableColumnSelection" placement="bottom" popoverTitle="Column customization" ripple-radius> Columns  <span class="glyphicon glyphicon-cog" style="color:green"></span></button>
                                 <popover-content #pTableColumnSelection [closeOnClickOutside]="false" popoverPlacement="left" [animation]="true" style="left:-100px;" class="p-table-popover">
                                     <ul class="nav nav-tabs" *ngIf="settingsTabs.length>1">
@@ -96,7 +97,8 @@
                     </div>
                 </div>
             </div>
-            <div style="width:100%" [style.overflow]="pTableSetting.pTableStyle?.tableOverflow==true?'auto':'hidden'" [ngClass]="{'p-table-overflow-x':pTableSetting.pTableStyle?.tableOverflowX,'p-table-overflow-y':pTableSetting.pTableStyle?.tableOverflowY}" [style.max-height]="pTableSetting.pTableStyle?.overflowContentHeight">
+            <div style="width:100%" (scroll)="onScroll($event)" [style.overflow]="pTableSetting.pTableStyle?.tableOverflow==true?'auto':'hidden'" [ngClass]="{'p-table-overflow-x':pTableSetting.pTableStyle?.tableOverflowX,'p-table-overflow-y':pTableSetting.pTableStyle?.tableOverflowY}"
+                [style.max-height]="pTableSetting.pTableStyle?.overflowContentHeight">
                 <div class="p-table-scroll-body" [id]="'p-table-scroll-'+pTableSetting.tableID" [style.width]="pTableSetting.pTableStyle?.overflowContentWidth">
                     <div class="panel-body p-table-body">
                         <table class="p-table table table-striped table-bordered table-list" [id]="pTableSetting.tableID">
