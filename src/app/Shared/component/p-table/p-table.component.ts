@@ -89,7 +89,7 @@ export class PTableComponent implements OnInit, DoCheck {
 
     this.totalColspan = this.totalColspan + this.pTableSetting["tableColDef"].length;
     this.maximumPaggingDisplay = this.pTableSetting["displayPaggingSize"] || 10;
-    if(this.pTableSetting["enabledAutoScrolled"]){
+    if (this.pTableSetting["enabledAutoScrolled"]) {
       this.enabledPagination = false;
       this.pageSize = this.pTableSetting["pageSize"] || 30;
     }
@@ -630,6 +630,78 @@ export class PTableComponent implements OnInit, DoCheck {
     }
   }
 
+  fnDownloadCSV() {
+    let exportFileName = this.pTableSetting.tableName.replace(/\' '/g,'_')
+    debugger;
+    let exprtcsv: any[] = [];
+    var csvData = this.convertToCSV(this.pTableData);
+    var blob = new Blob([csvData], { type: "text/csv;charset=utf-8;" });
+    if (navigator.msSaveBlob) { // IE 10+
+      navigator.msSaveBlob(blob, this.createFileName(exportFileName))
+    } else {
+      var link = document.createElement("a");
+      if (link.download !== undefined) { // feature detection
+        // Browsers that support HTML5 download attribute
+        var url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        link.setAttribute("download", this.createFileName(exportFileName));
+        //link.style = "visibility:hidden";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    }
+  }
+
+
+  private convertToCSV(objarray: any) {
+    debugger;
+    var array = typeof objarray != 'object' ? JSON.parse(objarray) : objarray;
+    var str = '';
+    var row = "";
+    //for header row 
+    this.pTableSetting.tableColDef.forEach((rec: any) => {
+      if (rec.visible == null || rec.visible == true) {
+        row += rec.headerName + ',';
+      }
+    })
+
+
+    /*for (var index in objarray[0]) {
+        //Now convert each value to string and comma-separated
+        row += index + ',';
+    }*/
+    row = row.slice(0, -1);
+    //append Label row with line break
+    str += row + '\r\n';
+
+    for (var i = 0; i < array.length; i++) {
+      var line = '';
+      //  for (var index in array[i]) {
+      //      if (line != '') line += ','
+      //      line += JSON.stringify(array[i][index]);
+      //  }
+      this.pTableSetting.tableColDef.forEach((rec: any) => {
+        if (rec.visible == null || rec.visible == true) {
+          line += JSON.stringify(array[i][rec.internalName])+ ',';;
+        }
+      })
+      line = line.slice(0, -1);
+      str += line + '\r\n';
+    }
+    return str;
+  }
+
+  private createFileName(exportFileName: string): string {
+    var date = new Date();
+    return (exportFileName +
+      date.toLocaleDateString() + "_" +
+      date.toLocaleTimeString()
+      + '.csv')
+  }
+
+
+
 }
 
 
@@ -665,6 +737,7 @@ export interface IPTableSetting {
   enabledCustomReflow?: boolean | false,
   enabledReflow?: boolean | false,
   enabledAutoScrolled?: boolean | false,
+  enabledDownloadBtn?:boolean|false,
 
 }
 

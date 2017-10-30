@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfirmService } from './Shared/component/p-confirmation/confirm.service';
 import {ConfirmComponent} from './Shared/component/p-confirmation/confirm.component';
+import {Observable} from 'rxjs/Rx';
+
 declare var jQuery: any;
 
 @Component({
@@ -36,7 +38,7 @@ declare var jQuery: any;
     
        
       
-    <button class="btn btn-primary" (click)="prompt()">click me</button>
+    <button class="btn btn-primary" (click)="prompt()">click me for confirmation</button>
      <p-confirm></p-confirm>
 
  </div>
@@ -65,6 +67,8 @@ declare var jQuery: any;
     padding:5px;
   }`]
 })
+
+
 export class AppComponent implements OnInit {
   name = 'Angular';
   public territoryNodes: any[];
@@ -80,10 +84,10 @@ export class AppComponent implements OnInit {
 
   constructor(private _confirm: ConfirmService) {
     this.territoryNodes = [
-      { NodeCode: '10', NodeName: 'Node A', BrickOutletCount: 10 },
-      { NodeCode: '11', NodeName: 'Node B', BrickOutletCount: 10 },
-      { NodeCode: '12', NodeName: 'Node C', BrickOutletCount: 11 },
-      { NodeCode: '13', NodeName: 'Node C', BrickOutletCount: 10 },
+      { NodeCode: '1,0', NodeName: 'Node, A', BrickOutletCount: 10 },
+      { NodeCode: '1,1', NodeName: 'Node, B', BrickOutletCount: 10 },
+      { NodeCode: '1,2', NodeName: 'Node, C', BrickOutletCount: 11 },
+      { NodeCode: '13', NodeName: 'Node, C', BrickOutletCount: 10 },
       { NodeCode: '10', NodeName: 'Node A', BrickOutletCount: 12 },
       { NodeCode: '10', NodeName: 'Node D', BrickOutletCount: 12 },
       { NodeCode: '10', NodeName: 'Node X', BrickOutletCount: 10 },
@@ -121,7 +125,8 @@ export class AppComponent implements OnInit {
       ],
       enabledSearch: true,
       enabledSerialNo: true,
-      pageSize: 12,
+      pageSize: 5,
+	  enabledEditBtn:true,
       enabledDataLength: true,
       enabledCellClick: true,
       enabledColumnFilter: true,
@@ -130,10 +135,13 @@ export class AppComponent implements OnInit {
       enabledReordering: true,
       enabledPagination:false,
       enabledAutoScrolled:true,
+      enabledDownloadBtn:true,
       pTableStyle:{ 
         tableOverflowY:true,
-        overflowContentHeight: '350px'}
+        overflowContentHeight: '150px'}
     };
+
+    this.fnCounter();
   }
   showPTable() {
   }
@@ -178,4 +186,10 @@ export class AppComponent implements OnInit {
       this.activeReflow = true;
     }
   }
+
+fnCounter(){
+   Observable.interval(100 * 60).subscribe(x => {
+    console.log("Time:  "+Date());
+  });
+}
 }

@@ -470,3 +470,10 @@ ul.ul-dragable {
 .individual-ptable-record-Ignored td {
     background-color: #F8E8BA !important;
 }
+
+.p-table-download{
+    font-size: 22px;
+    color: green;
+    padding-left: 8px;
+    cursor: pointer;
+}
